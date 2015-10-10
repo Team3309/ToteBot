@@ -9,7 +9,7 @@ package org.team3309.lib.controllers.statesandsignals;
  *
  */
 public class InputState {
-    
+
     private double error = 0;
     private double x = 0;
     private double y = 0;

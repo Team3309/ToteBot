@@ -128,24 +128,27 @@ public class XboxController extends GenericHID {
     }
 
     public double getX(Hand hand) {
-        if (hand.equals(Hand.kLeft))
+        if (hand.equals(Hand.kLeft)) {
             return getLeftX();
-        else
+        } else {
             return getRightX();
+        }
     }
 
     public double getY(Hand hand) {
-        if (hand.equals(Hand.kLeft))
+        if (hand.equals(Hand.kLeft)) {
             return getLeftY();
-        else
+        } else {
             return getRightY();
+        }
     }
 
     public double getZ(Hand hand) {
-        if (hand.equals(Hand.kLeft))
+        if (hand.equals(Hand.kLeft)) {
             return 0;
-        else
+        } else {
             return getRightTrigger();
+        }
     }
 
     public double getTwist() {
@@ -161,10 +164,11 @@ public class XboxController extends GenericHID {
     }
 
     public boolean getTrigger(Hand hand) {
-        if (hand.equals(Hand.kLeft))
+        if (hand.equals(Hand.kLeft)) {
             return getLeftBumper();
-        else
+        } else {
             return getRightBumper();
+        }
     }
 
     public boolean getTop(Hand hand) {
@@ -172,10 +176,11 @@ public class XboxController extends GenericHID {
     }
 
     public boolean getBumper(Hand hand) {
-        if (hand.equals(Hand.kLeft))
+        if (hand.equals(Hand.kLeft)) {
             return getLeftBumper();
-        else
+        } else {
             return getRightBumper();
+        }
     }
 
     public boolean getRawButton(int i) {
@@ -183,9 +188,10 @@ public class XboxController extends GenericHID {
     }
 
     private double scaleAxis(double val) {
-        if (Math.abs(val) < DEADBAND)
+        if (Math.abs(val) < DEADBAND) {
             return 0;
-        else
+        } else {
             return (val * val * val) - DEADBAND_CUBED;
+        }
     }
 }

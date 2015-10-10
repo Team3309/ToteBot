@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.robot;
+package edu.wpi.first.wpilibj.subsystems;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Gyro;
@@ -24,6 +24,7 @@ public class Drive extends Subsystem {
     private Victor leftBack = new Victor(3); 
     private Gyro gyro = new Gyro(1);
     
+    
     private static Drive instance; 
     public static Drive getInstance() {
         if (instance == null) 
@@ -40,8 +41,9 @@ public class Drive extends Subsystem {
     }
     
     public void runDrive(double throttle, double turn) {
-        setRightSide(throttle + turn);
-        setLeftSide(throttle - turn);
+        System.out.println("THROTTLE : " + throttle);
+        setRightSide(throttle - turn);
+        setLeftSide(throttle + turn);
     }
     
     private double skimGain = .25;
@@ -97,9 +99,9 @@ public class Drive extends Subsystem {
     }
 
     private void setRightSide(double v) {
-        rightFront.set(v);
-        rightMiddle.set(v);
-        rightBack.set(v);
+        rightFront.set(-v);
+        rightMiddle.set(-v);
+        rightBack.set(-v);
     }
     
      private void setLeftSide(double v) {
