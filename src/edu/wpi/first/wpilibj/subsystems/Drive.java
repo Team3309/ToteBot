@@ -201,11 +201,11 @@ public class Drive extends Subsystem {
             }
             overPower = 1.0;
             if (isHighGear) {
-                sensitivity = .8;
+                sensitivity = .43;
             } else {
-                sensitivity = .8;
+                sensitivity = .43;
             }
-            angularPower = wheel;
+            angularPower = wheel * sensitivity;
         } else {
             overPower = 0.0;
             angularPower = Math.abs(throttle) * wheel * sensitivity
