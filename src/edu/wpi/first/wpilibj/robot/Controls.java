@@ -11,6 +11,6 @@ package edu.wpi.first.wpilibj.robot;
  */
 public class Controls {
 	// All Controllers being used
-	public static XboxController driverController = new XboxController(0);
-	public static XboxController operatorController = new XboxController(1);
+	public static XboxController driverController = new XboxController(1);
+	public static XboxController operatorController = new XboxController(2);
 }

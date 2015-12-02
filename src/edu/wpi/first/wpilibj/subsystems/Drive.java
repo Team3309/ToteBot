@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.robot.Controls;
 
 /**
  *
@@ -42,7 +43,8 @@ public class Drive extends Subsystem {
     
     public void runDrive(double throttle, double turn) {
         System.out.println("THROTTLE : " + throttle);
-        cheesyDrive(throttle, turn, true, false); 
+        cheesyDrive(throttle, turn, !Controls.driverController.getRightBumper(), false); 
+        System.out.println("RB : " + !Controls.driverController.getRightBumper());
         // 2setRightSide(throttle - turn);
         // setLeftSide(throttle + turn);
     }
@@ -144,7 +146,7 @@ public class Drive extends Subsystem {
                     / Math.sin(Math.PI / 2.0 * wheelNonLinearity);
             wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel)
                     / Math.sin(Math.PI / 2.0 * wheelNonLinearity);
-        } else {
+        } else if (!isQuickTurn){
             wheelNonLinearity = 0.5;
             // Apply a sin function that's scaled to make it feel better.
             wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel)
@@ -169,12 +171,12 @@ public class Drive extends Subsystem {
             sensitivity = .75;
         } else {
             if (wheel * negInertia > 0) {
-                negInertiaScalar = 2.5;
+                negInertiaScalar = 0.0;
             } else {
                 if (Math.abs(wheel) > 0.65) {
-                    negInertiaScalar = 5.0;
+                    negInertiaScalar = 0.0;
                 } else {
-                    negInertiaScalar = 3.0;
+                    negInertiaScalar = 0.0;
                 }
             }
             sensitivity = .85; // Constants.sensitivityLow.getDouble();
@@ -201,15 +203,20 @@ public class Drive extends Subsystem {
             }
             overPower = 1.0;
             if (isHighGear) {
-                sensitivity = .43;
+                sensitivity = .525;
             } else {
-                sensitivity = .43;
+                sensitivity = .525;
             }
             angularPower = wheel * sensitivity;
+            rightPwm = leftPwm = linearPower;
+        leftPwm += angularPower;
+        rightPwm -= angularPower;
         } else {
-            overPower = 0.0;
-            angularPower = Math.abs(throttle) * wheel * sensitivity
-                    - quickStopAccumulator;
+            overPower = 0;
+            angularPower =  wheel;
+            leftPwm = rightPwm = 0;
+             leftPwm += angularPower;
+             rightPwm -= angularPower;
             if (quickStopAccumulator > 1) {
                 quickStopAccumulator -= 1;
             } else if (quickStopAccumulator < -1) {
@@ -218,10 +225,9 @@ public class Drive extends Subsystem {
                 quickStopAccumulator = 0.0;
             }
         }
-
-        rightPwm = leftPwm = linearPower;
-        leftPwm += angularPower;
-        rightPwm -= angularPower;
+        
+        System.out.println("ANGULAR " + angularPower);
+        
 
         if (leftPwm > 1.0) {
             rightPwm -= overPower * (leftPwm - 1.0);
