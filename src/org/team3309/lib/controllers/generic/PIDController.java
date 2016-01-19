@@ -7,6 +7,7 @@ import org.team3309.lib.controllers.statesandsignals.OutputSignal;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+
 /**
  * Basic PID Controller. The isCompleted Method will always return false.
  *
@@ -71,8 +72,6 @@ public abstract class PIDController extends Controller {
         SmartDashboard.putNumber(" kI", kI);
         SmartDashboard.putNumber(" kD", kD);
     }
-
-    // You would want to set the mIntegral and previousError to zero when
     // reusing a PID Loop
     public void reset() {
         mIntegral = 0;
@@ -155,7 +154,7 @@ public abstract class PIDController extends Controller {
     }
 
     public boolean isCompleted() {
-        // If the Controller is completable, then the error will need to be
+		// If the Controller is completable, then the error will need to be
         // between a certain threshold before isCompleted return true
         if (completable) {
             if (Math.abs(previousError) < THRESHOLD) {

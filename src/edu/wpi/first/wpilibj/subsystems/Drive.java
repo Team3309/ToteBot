@@ -20,8 +20,13 @@ public class Drive extends Subsystem {
     private Victor rightFront = new Victor(4); 
     private Victor rightMiddle = new Victor(5) ;
     private Victor rightBack = new Victor(6); 
+<<<<<<< HEAD
     public Victor leftFront = new Victor(1);  
     public Victor leftMiddle = new Victor(2); 
+=======
+    private Victor leftFront = new Victor(1);  
+    private Victor leftMiddle = new Victor(2); 
+>>>>>>> b937ab241c5ba700ad1a592546a66cbd7ef1580b
     private Victor leftBack = new Victor(3); 
     private Gyro gyro = new Gyro(1);
     

@@ -5,13 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 package edu.wpi.first.wpilibj.robot;
-
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.subsystems.Drive;
 import org.team3309.lib.controllers.generic.PIDPositionController;
 import org.team3309.lib.controllers.statesandsignals.InputState;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.subsystems.Drive;
 
 /**
  * The VM is configured to automatically run this class, and to call the+
@@ -39,7 +40,6 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("kd", 0);
         SmartDashboard.putNumber("ka", 0);
         SmartDashboard.putNumber("kv", .006);
-        
     }
 
     /**
@@ -48,7 +48,6 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
 
     }
-
     private double aimAcc = 0;
     private double aimVel = 0;
     private double kA = 0;
@@ -132,6 +131,8 @@ public class Robot extends IterativeRobot {
         try {
             Thread.sleep(75);
         } catch (InterruptedException ex) { }
+        Drive.getInstance().runDrive(controller.getLeftY(), controller.getRightX());
+        System.out.println("HOWDY");
     }
 
     /**
